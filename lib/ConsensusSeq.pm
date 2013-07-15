@@ -4,19 +4,6 @@ use warnings;
 use strict;
 use Carp;
 
-# Don't export with OO perl
-
-# BEGIN {
-#     use Exporter ();
-#     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-#     $VERSION     = '0.01';
-#     @ISA         = qw(Exporter);
-#     #Give a hoot don't pollute, do not export more than needed by default
-#     @EXPORT      = qw();
-#     @EXPORT_OK   = qw();
-#     %EXPORT_TAGS = ();
-# }
-
 #################### main pod documentation begin ###################
 
 =head1 NAME
@@ -40,10 +27,15 @@ The ConsensusSeq object that gives methods for accessing and scoring using a con
 =head2 new
 
  Usage     : $consensus = ConsensusSeq->new
+
  Purpose   : Gets a new, empty consensus sequence
+
  Returns   : ConsensusSeq
+
  Args      : 
+
  Throws    : 
+
  Comment   : 
 
 See Also   : ConsensusSeqIO
@@ -83,14 +75,18 @@ sub new {
 =head2 add_element
 
  Usage     : $consensus->add_element('a' => 0.25, 'c' => 0.25, 't' => 0.25, 'g' => 0.25);
- Purpose   : Adds an element to the end of the consensus sequence
- Returns   : 
- Argument  : Turns named args into a hash in which determines score for the element.
- Throws    : 
- Comment   : Use single characte keys only. Multi characters will not be evauluated.
-           : 
 
-See Also   : 
+ Purpose   : Adds an element to the end of the consensus sequence
+
+ Returns   : 
+
+ Argument  : Turns named args into a hash in which determines score for the element.
+
+ Throws    : 
+
+ Comment   : Use single characte keys only. Multi characters will not be evauluated.
+
+ See Also   : 
 
 =cut
 
@@ -118,16 +114,21 @@ sub add_element {
 
  Usage     : my $boundary = $consensus->boundary;
            : $consensus->missing_index_score(-boundary => 7);
+
  Purpose   : gets/sets the boundary index
+
  Returns   : The current boundary index
+
  Argument  : [-boundary] The a new boundary index
+
  Throws    : 
+
  Comment   : The boundary index is the index from 0 to self->length-1 that
            : indicates the boundary of the exon and intron in a sequence.
            : This is important because the boundaries is usually in the middle
            : of the ConsensusSeq.
 
-See Also   : 
+ See Also   : 
 
 =cut
 
@@ -145,12 +146,16 @@ sub boundary {
 =head2 length
 
  Usage     : $consensus->length
+
  Purpose   : Gets the lenth of the consensus sequence
+
  Returns   : Length of the consensus sequence
+
  Argument  : 
+
  Throws    : 
+
  Comment   : 
-           : 
 
 See Also   : 
 
@@ -172,7 +177,7 @@ sub length {
  Comment   : The missing index score is the score when an indext is not found. Defualt: 0
            : E.g. If you did not set a score for an "n" in a sequence element, the score for the "n" would be the missing index score. 
 
-See Also   : 
+ See Also   : 
 
 =cut
 
@@ -189,11 +194,15 @@ sub missing_index_score {
 =head2 score_element
 
  Usage     : my $score = $consensus->score_element(nucl => "a", index => $index); 
+
  Purpose   : Gets the score for a NT at a given index
+
  Returns   : The score of an NT with index
- Argument  : 1. A nucleotide
-           : 2. Index
+
+ Argument  : nucl :  A nucleotide
+           : index : The index of the nt
  Throws    : 
+
  Comment   : Returns the missing index score if not found
            : Case insensitive
 
@@ -271,12 +280,16 @@ sub score_seq {
  Usage     : my $title = $consensus->title;
            : $consensus->title(title => "Some title");
  Purpose   : Simple title for sequence to help differeniate between sequences eg, 5' vs 3'
+
  Returns   : The title of the consensus sequence
- Argument  : A new string title
+
+ Argument  : title : The new title
+
  Throws    : 
+ 
  Comment   : 
 
-See Also   : 
+ See Also   : 
 
 =cut
 
@@ -293,11 +306,15 @@ sub title {
 =head2 to_string
 
  Usage     : print $conSeq->toString
-           : 
+
  Purpose   : returns the consensus sequence as a readable string.
+
  Returns   : string
+
  Argument  : 
+
  Throws    : 
+
  Comment   : 
 
 See Also   : 
@@ -337,16 +354,7 @@ sub to_string {
 
 =head1 COPYRIGHT
 
-This program is free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
-
-The full text of the license can be found in the
-LICENSE file included with this module.
-
-
 =head1 SEE ALSO
-
-Bioperl
 
 =cut
 

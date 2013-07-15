@@ -8,7 +8,7 @@ WriteMakefile(
     AUTHOR       => 'Nathan Elmore (nate@elmoren.com)',
     ABSTRACT     => 'Exon/Intron Boundary Finder',
     PREREQ_PM    => {
-                     'File::Basename' => 0,
+                     'File::Basename' => 0.01,
                      'Test::Simple' => 0.44,
                     },
 

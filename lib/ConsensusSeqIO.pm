@@ -51,11 +51,16 @@ missing index score when there is an 'n' in the second position of the sequence.
 =head1 METHODS
 
 =head2 new
+
     Usage       : $consensusIO = ConsensusSeqIO->new(path => "path/to/file");
+
     Purpose     : Gets a ConsensusSeqIO object for reading/writed stored consensus sequences
+
     Returns     : ConsensusSeqIO
+
     Args        : path => "path/to/file"
                 : clobber => 0/1 # clobber determines whether to open for append or write
+
 =cut
 
 sub new {
@@ -87,10 +92,15 @@ sub new {
 }
 
 =head2 next_seq
+
     Usage       : $consensusSeq = ConsensusSeqIO->next_seq
+
     Purpose     : Gets a ConsensusSeqIO object for reading/writed stored consensus sequences
+
     Returns     : ConsensusSeq object
+
     Args        : 
+
 =cut
 
 sub next_seq {
@@ -152,13 +162,16 @@ sub next_seq {
 
  Usage     : my $title = $SeqIO->path;
            : $SeqIO->path(path => "Some Path")
+
  Purpose   : Simple title for sequence to help differeniate between sequences eg, 5' vs 3'
+
  Returns   : The title of the consensus sequence
+
  Argument  : A new string title
- Throws    : 
+
  Comment   : 
 
-See Also   : 
+ See Also   : 
 
 =cut
 
@@ -236,10 +249,15 @@ sub _read_seq {
 }
 
 =head2 write_seq
+
     Usage       : $consensusSeq->write_seq($seq)
+
     Purpose     : Writes a sequence 
+
     Returns     : 1 for success, 0 for error
+
     Args        : ConsensusSeq object
+
 =cut
 
 sub write_seq {
@@ -256,6 +274,24 @@ sub write_seq {
     
     print {$self->{_fh}} $seq->to_string;
 }
+
+=head1 BUGS
+
+
+=head1 SUPPORT
+
+
+=head1 AUTHOR
+
+    Nathan Elmore
+    nate@elmoren.com
+    http://www.elmoren.com
+
+=head1 COPYRIGHT
+
+=head1 SEE ALSO
+
+=cut
 
 1;
 

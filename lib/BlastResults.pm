@@ -463,10 +463,14 @@ sub raw_blast
 =head2 save
 
  Usage     : $blast_results->save(-file => $file);
+
  Purpose   : Saves the results for future reference.
+
  Returns   : Nothing
+
  Argument  : -file : Desired file to write to. If you want to rewrite the file,
                      use $self->csv_file. Clobbers the old file, if it exists.
+
  Comment   : 
 
 =cut
@@ -520,8 +524,11 @@ sub save
 =head2 size
 
  Usage     : $num_result = $blast_results->size
+
  Purpose   : Gets number of blast hits
+
  Returns   : The total number of blast hits contained in the BlastResults
+
  Argument  : None
 
  Comment   : 
@@ -549,12 +556,6 @@ sub size
 
 =head1 COPYRIGHT
 
-This program is free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
-
-The full text of the license can be found in the
-LICENSE file included with this module.
-
 =head1 SEE ALSO
 
 Blast Command Line Tools, BlastResults
@@ -562,5 +563,3 @@ Blast Command Line Tools, BlastResults
 =cut
 
 1;
-
-# The preceding line will help the module return a true value

@@ -89,9 +89,13 @@ sub new
 
  Usage     : my $blast_db = $BM->blast_db(-db => "some/path/blastdb_name");
            : my $blast_db = $BM->blast_db();
+
  Purpose   : Getter/Setter for the current blastdb parms
+
  Returns   : The blastdb path, 
+
  Argument  : -db: database path and name as string
+
  Comment   : 
 
 =cut
@@ -110,10 +114,14 @@ sub blast_db
 =head2 blastn
 
  Usage     : my $blast_results = $BM->blastn({-query => "queryPath"});
+
  Purpose   : Runs a blastn query with the given query path or sequence
+
  Returns   : A BlastResults object
+
  Argument  : -query: Path to a blast query Database
              -query-seq: a seqence of NT
+
  Comment   : If both arguments are provided, it uses the query path method and gives a warning
 
 =cut
@@ -126,10 +134,14 @@ sub blastn
 =head2 blastx
 
  Usage     : my $blast_results = $BM->blastx(-query => "queryPath");
+
  Purpose   : Runs a blastx query with the given query path or sequence
+
  Returns   : A BlastResults object
+
  Argument  : -query: Path to a blast query Database
              -query-seq: a seqence of NT
+
  Comment   : If both arguments are provided, it uses the query path method and gives a warning
 
 =cut
@@ -143,10 +155,14 @@ sub blastx
 
  Usage     : my $evalue = $BM->evalue(-e => 10e-1);
              my $evalue = $BM->evalue;
+
  Purpose   : Gets and sets the evalue for the queries
+
  Returns   : A BlastResults object
+
  Argument  : -query: Path to a blast query Database
              -query-seq: a seqence of NT
+
  Comment   : The expected value for saving hits (evalue) is useful when want to remove
              hits that do not have enough matches. Or, it can be used to try and acquire
              more hits that have less matches. 
@@ -244,10 +260,14 @@ sub get_sequence
 =head2 tblastn
 
  Usage     : my $blast_results = $BM->tblastn(-query => "queryPath");
+
  Purpose   : Runs a tblastn query with the given path to query
+
  Returns   : A BlastResults object, or croaks if error in query
+
  Argument  : -query: Path to a blast query file
              [-db] : Path to subject database. (Required if -blast_db not set)
+
  Comment   : Other args to come, maybe. Custom formats not supported, yet.
 
 =cut
@@ -325,16 +345,6 @@ convention.
     http://www.elmoren.com
 
 =head1 COPYRIGHT
-
-This program is free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
-
-The full text of the license can be found in the
-LICENSE file included with this module.
-
-=head1 SEE ALSO
-
-Blast Command Line Tools, BlastResults
 
 =cut
 
