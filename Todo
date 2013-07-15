@@ -1,0 +1,4 @@
+TODO list for Perl module BoundaryFinder
+
+- Finish BlastManager subroutines
+- Normalize subroutine parameter style to foo(-paramter => $param)
