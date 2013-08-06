@@ -23,8 +23,7 @@
     The general procedure of using the library to find exon boundaries
     is as follows:
 
-### 1. Use the BlastManager to blast your query sequence agaist the
-          subject database.
+### 1. Use the BlastManager to blast your query sequence agaist the subject database.
 
           This will give a BlastResults oject, or a set of blast hits.
 
@@ -79,7 +78,7 @@
 
 ## USAGE
 
-     Coming Soon...
+     Coming Soon... For now see examples in t/
 
 ## AUTHOR
 
