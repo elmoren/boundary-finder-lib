@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More tests => 24;
 use Carp;
 use Data::Dumper;
 
@@ -100,10 +100,66 @@ ok($hit->{sseqid} eq "2R:4840277-4848161", "Testing Sub Seq ID After Load");
 
 #carp Dumper($hit);
 
+#
+# The 5' and 3' are switched because that is the way the consensus sequences
+# are from the literature
+#
 my $bf_results = BoundaryFinder::score_hit(-hit => $hit, 
 				    -db => $db,
-				    -cons_seq_5 => $cons_seq_5,
-				    -cons_seq_3 => $cons_seq_3
+				    -cons_seq_5 => $cons_seq_3,
+				    -cons_seq_3 => $cons_seq_5
     );
- 
-#carp Dumper($bf_results);
+
+#
+# Now you can process the results to determine which sequences you want. It
+# is up to the user to determine how they want to examine these results.
+#
+
+# carp Dumper($bf_results);
+
+#
+# Get the upstream hit
+#
+
+# We know the hit is boundary results 40 and 314
+# Use a hit + the consensus sequence boundary to get the actual exon
+
+my $up_index = 318 + $cons_seq_3->boundary;
+my $dn_index = 642 + $cons_seq_5->boundary - 1;
+
+my $exon = $bm->get_sequence(-db => $db, 
+			     -seq_id => $hit->{sseqid},
+			     -start => $up_index,
+			     -end => $dn_index
+    );
+
+#carp $exon;
+
+my $expected = "cctcccccattgagttcgtaatggacaccagcctaaatggctctcgatctgatcctgcgactgcaacccaccctggcaaatggccaccgacgaccaaagcgccggcgctcagggctccagctggaacagctggacatgcttatcagtcgccatcgtcgtcgctggccgctgataacagaagccacgacaacaacaacgctagcgccgtgtccatgctgctgccgcaagacggcgacgcatctggagctgtggcccctgctgttactccccagctgcccatctacattgctcagcctagcgcgaaaaagccagaaa";
+ok (lc($exon) eq $expected, "Check exon against original actuall exon");
+
+#
+# Quick test of pulling a boundary area
+#
+
+#
+# Upstream, bad float comparison
+#
+$exon = $bm->get_sequence(-db => $db, 
+			  -seq_id => $hit->{sseqid},
+			  -start => 318,
+			  -end => 318 + $cons_seq_3->length -1
+    );
+
+ok ($cons_seq_3->score_seq(seq => $exon) > 2.1336e-10, "Upstream pull and score");
+
+#
+# Downstream, yet another bad float comparison
+#
+$exon = $bm->get_sequence(-db => $db, 
+			  -seq_id => $hit->{sseqid},
+			  -start => 642,
+			  -end => 642 + $cons_seq_5->length -1
+    );
+
+ok ($cons_seq_5->score_seq(seq => $exon) > 1.9012e-05, "Downstream pull and score");

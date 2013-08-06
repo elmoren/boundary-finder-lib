@@ -78,8 +78,9 @@ sub new
     bless ($self, ref ($class) || $class);
 
     # Test if Blast Exists on the system.
-    if ( which('blastn') ) {
-	print "Warning: Blast+ tools not found in PATH\n";
+    # Should eventrually Test versiont too...
+    if ( not which('blastn') ) {
+	croak "Warning: Blast+ tools not found in PATH\n";
     }
 
     return $self;
@@ -312,9 +313,6 @@ sub tblastn
     
     # Get the DB Source...?
     # my $source;
-
-    # @TODO: Figure out how tot get the db source.
-    # Currently assumes/requires the source to be $db.fas
 
     return BlastResults->new( -raw_csv => $csv, 
 			      -raw_blast => $blast, 

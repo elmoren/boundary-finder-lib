@@ -4,6 +4,8 @@ use warnings;
 use strict;
 use Carp;
 
+use Data::Dumper;
+
 BEGIN {
      require Exporter;
      use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
@@ -218,18 +220,38 @@ sub score_hit
 				     -end    => $stop
     );
     
-    
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # 5 prime results
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     $cons_seq = $params{-cons_seq_5};
-    $results{$cons_seq->title} = score_seq(-seq       => $seq_5_prime, 
-					   -cons_seq  => $cons_seq, 
-					   -min_score => $params{-min_score}
+    my $tmp_5_prime = score_seq(-seq       => $seq_5_prime, 
+				-cons_seq  => $cons_seq, 
+				-min_score => $params{-min_score}
     );
 
+    #
+    # Now offset the results to the correct positions withing the blast database
+    #
+    my $offset = $hit->{sstart} - $params{-padding};
+    $offset = 0 if $offset < 0;
+    my %up = map {$offset + $_ => $tmp_5_prime->{$_}} keys %{$tmp_5_prime};
+    $results{$cons_seq->title} = \%up;
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # 3' Results
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     $cons_seq = $params{-cons_seq_3};
-    $results{$cons_seq->title} = score_seq(-seq       => $seq_3_prime, 
-					   -cons_seq  => $cons_seq, 
-					   -min_score => $params{-min_score}
+    my $tmp_3_prime = score_seq(-seq       => $seq_3_prime, 
+				-cons_seq  => $cons_seq, 
+				-min_score => $params{-min_score}
     );
+
+    #
+    # Now offset the results to the correct positions withing the blast database
+    #    
+    $offset = $hit->{sstart};
+    my %down = map {$offset + $_ => $tmp_3_prime->{$_}} keys %{$tmp_3_prime};
+    $results{$cons_seq->title} = \%down;
 
     return \%results;
 }
