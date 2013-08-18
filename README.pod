@@ -120,9 +120,9 @@ and score as the value.
   nate@elmoren.com
   http://www.elmoren.com
 
-## COPYRIGHT       
+=head2 COPYRIGHT       
 
-## SEE ALSO
+=head2 SEE ALSO
    
 	Blast+ 2.2.28
 
