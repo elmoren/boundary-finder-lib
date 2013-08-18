@@ -20,8 +20,10 @@ match)
 
 =head2 OVERVIEW
 
-    The general procedure of using the library to find exon boundaries
-    is as follows:
+The general procedure of using the library to find exon boundaries
+is as follows:
+
+=over 1
 
 =item 1. Use the BlastManager to blast your query sequence agaist the subject database.
 
@@ -76,9 +78,41 @@ their positions in the blast database for easy retrieval. It is
 simply a wrapper of two hashes that contain the position as keys,
 and score as the value.
 
+=back
+
 =head2 USAGE
 
-     Coming Soon... For now see examples in t/
+  # First run blasts
+  my $query = "protein.faa";
+  my $db = "blast_databases/dmel"; # Name of the database to query
+
+  # Init the BlastManager
+  my $bm = BlastManager->new(-blast_db => $db);
+  # set the expect value (optional
+  $bm->evalue(-e => 1e-1);       
+
+  # Run the tblastn 
+  my $br = $bm->tblastn(-query => $query);
+
+  # Load the 5' and 3' consensus sequences for Drosophila
+  $seqIO = new ConsensusSeqIO(-path => "t/drosophila.cons");
+  my $cons_seq_5;
+  my $cons_seq_3;
+
+  $cons_seq_5 = $seqIO->next_seq;
+  $cons_seq_3 = $seqIO->next_seq;
+
+
+  # Run the blast
+  #
+  # The 5' and 3' are switched because that is the way the consensus sequences
+  # are from the literature
+  #
+  my $bf_results = BoundaryFinder::score_hit(-hit => $hit, 
+  				    -db => $db,
+				    -cons_seq_5 => $cons_seq_3,
+				    -cons_seq_3 => $cons_seq_5  );
+
 
 =head2 AUTHOR
 
