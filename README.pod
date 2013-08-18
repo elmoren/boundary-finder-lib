@@ -4,7 +4,10 @@ BoundaryFinder - Exon/Intron Boundary Finder Module
 
 =head2 SYNOPSIS
 
-      use BoundaryFinder;
+  use BoundaryFinder;
+
+  $seq = "aaactgcaaggt";
+  my $hits = BoundaryFinder::score_seq(-seq => $seq, -cons_seq => $cons_seq);
 
 =head2 DESCRIPTION
 
